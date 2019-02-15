@@ -1,13 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <script>
+      console.log('hello');
+    </script>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="theme-color" content="#000000" />
+    <script src="https://verify.sendwyre.com/js/widget-loader.js"></script>
+    <script type="text/javascript">
+      (function() {
+        var widget = new Wyre.Widget({
+          env: 'test',
+          accountId: 'AC-HA6DJ24WW6F',
+          auth: { type: 'metamask' },
+          operation: {
+            type: 'debitcard',
+            dest: '0x98B031783d0efb1E65C4072C6576BaCa0736A912',
+            destCurrency: 'ETH',
+            destAmount: 0.01
+          }
+        });
+        widget.on('close', function(e) {
+          // the widget closed before completing the process
+          if (e.error) console.log('there was a problem: ', e.error);
+          else console.log('the customer closed the widget');
+        });
+        widget.on('complete', function(e) {
+          // onboarding was completed successfully!
+        });
+        document.getElementById('verify-button').addEventListener('click', function(e) {
+          widget.open();
+        });
+      })();
+    </script>
+
+    <!-- <script type="text/javascript">
+      (function() {
+        var widget = new Wyre.Widget({
+          env: 'test',
+          accountId: 'AC-HA6DJ24WW6F',
+          auth: { type: 'metamask' },
+          operation: {
+            type: 'debitcard',
+            dest: '0x98B031783d0efb1E65C4072C6576BaCa0736A912',
+            destCurrency: 'ETH',
+            destAmount: 0.01
+          }
+        });
+
+        widget.on('close', function(e) {
+          // the widget closed before completing the process
+          if (e.error) console.log('there was a problem: ', e.error);
+          else console.log('the customer closed the widget');
+        });
+        widget.on('complete', function(e) {
+          // onboarding was completed successfully!
+        });
+        document.getElementById('verify-button').addEventListener('click', function(e) {
+          widget.open();
+        });
+      })();
+    </script> -->
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
